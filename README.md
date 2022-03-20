@@ -11,13 +11,18 @@ are migrated to later versions of Windows.
 
 Ensure Python 2.7 and pip are installed. Install requirements first:
 
-```
+```bash
 pip install -r requirements.txt
 ```
 
 and then run the tool to display the GUI:
 
-```
+```bash
 python run.py
 ```
 
+You can run the tool as a scheduled task and avoid showing the GUI:
+
+```bash
+python run.py --auto-run
+```
