@@ -109,6 +109,9 @@ def send_email_report(directories, archived, deleted, errors, job_start, job_fin
         
         # Send the message via the configured SMTP server
         s = smtplib.SMTP(email_reports_config['host'], email_reports_config['port'])
+
+        if 'user' in email_reports_config and len(email_reports_config['user']) > 0:
+            s.login(email_reports_config['user'], email_reports_config['password'])
         s.sendmail(email_reports_config['from'], [email_address], msg.as_string())
         s.quit()
         

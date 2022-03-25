@@ -238,11 +238,15 @@ class EmailReportsDialog:
         tk.Label(self.top, text='This Machine Name:').grid(row=1, sticky='EW', padx=5, pady=5)
         tk.Label(self.top, text='SMTP Server Host:').grid(row=2, sticky='EW', padx=5, pady=5)
         tk.Label(self.top, text='SMTP Server Port:').grid(row=3, sticky='EW', padx=5, pady=5)
-        tk.Label(self.top, text='Send Emails From:').grid(row=4, sticky='EW', padx=5, pady=5)
+        tk.Label(self.top, text='SMTP User (blank if none):').grid(row=4, sticky='EW', padx=5, pady=5)
+        tk.Label(self.top, text='SMTP Password (blank if none):').grid(row=5, sticky='EW', padx=5, pady=5)
+        tk.Label(self.top, text='Send Emails From:').grid(row=6, sticky='EW', padx=5, pady=5)
 
         self.txt_name = tk.Entry(self.top)
         self.txt_host = tk.Entry(self.top)
         self.txt_port = tk.Entry(self.top)
+        self.txt_user = tk.Entry(self.top)
+        self.txt_password = tk.Entry(self.top)
         self.txt_from = tk.Entry(self.top)
 
         datastore = get_datastore()
@@ -250,6 +254,8 @@ class EmailReportsDialog:
             self.txt_name.insert(0,datastore['email_reports_config']['name'])
             self.txt_host.insert(0,datastore['email_reports_config']['host'])
             self.txt_port.insert(0,datastore['email_reports_config']['port'])
+            self.txt_user.insert(0,datastore['email_reports_config']['user'])
+            self.txt_password.insert(0,datastore['email_reports_config']['password'])
             self.txt_from.insert(0,datastore['email_reports_config']['from'])
         except Exception as e:
             # No email_reports_config in datastore yet
@@ -258,13 +264,15 @@ class EmailReportsDialog:
         self.txt_name.grid(row=1, column=1, padx=5, sticky='EW')
         self.txt_host.grid(row=2, column=1, padx=5, sticky='EW')
         self.txt_port.grid(row=3, column=1, padx=5, sticky='EW')
-        self.txt_from.grid(row=4, column=1, padx=5, sticky='EW')
+        self.txt_user.grid(row=4, column=1, padx=5, sticky='EW')
+        self.txt_password.grid(row=5, column=1, padx=5, sticky='EW')
+        self.txt_from.grid(row=6, column=1, padx=5, sticky='EW')
 
         self.listbox_emails = tk.Listbox(self.top)
-        self.listbox_emails.grid(row=5, columnspan=2, padx=(5,0), pady=5, sticky='news')
+        self.listbox_emails.grid(row=7, columnspan=2, padx=(5,0), pady=5, sticky='news')
 
         vsb = ttk.Scrollbar(self.top, orient="vertical", command=self.listbox_emails.yview)
-        vsb.grid(row=5, column=2, sticky=("N", "S", "E", "W"), padx=(0,10), pady=(5, 5))
+        vsb.grid(row=7, column=2, sticky=("N", "S", "E", "W"), padx=(0,10), pady=(5, 5))
         self.listbox_emails.configure(yscrollcommand=vsb.set)
 
         datastore = get_datastore()
@@ -275,13 +283,13 @@ class EmailReportsDialog:
             # No email_reports_config in datastore yet
             pass
 
-        tk.Button(self.top,text='Add Email Address',command=self.add_email, width=15).grid(row=6, column=0, padx=5, pady=5)
-        tk.Button(self.top,text='Remove Email Address',command=self.remove_email, width=15).grid(row=6, column=1, padx=5, pady=5)
-        tk.Button(self.top,text='Save',command=self.save_configuration, width=15).grid(row=7, column=0, columnspan=2, padx=5, pady=5)
+        tk.Button(self.top,text='Add Email Address',command=self.add_email, width=15).grid(row=8, column=0, padx=5, pady=5)
+        tk.Button(self.top,text='Remove Email Address',command=self.remove_email, width=15).grid(row=8, column=1, padx=5, pady=5)
+        tk.Button(self.top,text='Save',command=self.save_configuration, width=15).grid(row=9, column=0, columnspan=2, padx=5, pady=5)
 
         self.top.columnconfigure(0, weight=1)
         self.top.columnconfigure(1, weight=1)
-        self.top.rowconfigure(5, weight=1)
+        self.top.rowconfigure(7, weight=1)
 
     # Add a new Email to the list
     def add_email(self):
@@ -308,6 +316,8 @@ class EmailReportsDialog:
         email_reports_config['name'] = self.txt_name.get()
         email_reports_config['host'] = self.txt_host.get()
         email_reports_config['port'] = self.txt_port.get()
+        email_reports_config['user'] = self.txt_user.get()
+        email_reports_config['password'] = self.txt_password.get()
         email_reports_config['from'] = self.txt_from.get()
         email_reports_config['email_addresses'] = self.listbox_emails.get(0, tk.END)
 
