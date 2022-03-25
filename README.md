@@ -1,7 +1,7 @@
 # XVI Archive Tool
 
 This tool runs on an XVI system to detect patients who have finished treatment and
-thei data can be deleted or archived.
+this data can be deleted or archived.
 
 This code was written using Python 2.7 to enable it to be compiled and run on
 legacy Windows XP systems. Ideally this will be updated to Python 3 as XVI systems
@@ -26,3 +26,8 @@ You can run the tool as a scheduled task and avoid showing the GUI:
 ```bash
 python run.py --auto-run
 ```
+
+## Notes
+
+While various Oncology Information Systems (OIS) should be compatible, MOSAIQ has only been tested with this
+code. Adjustments may be required to support other OIS databases.

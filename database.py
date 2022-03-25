@@ -22,58 +22,58 @@ import logging
 logger = logging.getLogger(__name__)
 
 # SQL Query to retrieve records for patients in a clinical trial
-# TODO Add center specific MOSAIQ SQL query in here, '%%%MRN%%%' is replaced with
+# TODO Add center specific OIS SQL query in here, '%%%MRN%%%' is replaced with
 # MRN list for query.
 QUERY_CLINICAL_TRIALS = """"""
 
 # SQL Query to retrieve records for patients who have finished treatment
-# TODO Add center specific MOSAIQ SQL query in here, '%%%MRN%%%' is replaced with
+# TODO Add center specific OIS SQL query in here, '%%%MRN%%%' is replaced with
 # MRN list for query.
 QUERY_PATIENT_FINISHED_TREATMENT = """"""
 
 # SQL Query to retrieve records for patients who have 4D cone beam data
-# TODO Add center specific MOSAIQ SQL query in here, '%%%MRN%%%' is replaced with
+# TODO Add center specific OIS SQL query in here, '%%%MRN%%%' is replaced with
 # MRN list for query.
 QUERY_PATIENT_HAS_4D = """"""
 
-# Perform the query on Mosaiq to fetch clinical trials
+# Perform the query on OIS to fetch clinical trials
 def fetch_clinical_trials(mrns):
 
     if len(QUERY_CLINICAL_TRIALS) == 0:
-        logger.error("MOSAIQ query missing, please add in database.py")
+        logger.error("OIS query missing, please add in database.py")
         return ""
 
-    return query_mosaiq(QUERY_CLINICAL_TRIALS.replace('%%%MRN%%%',mrns))
+    return query_ois(QUERY_CLINICAL_TRIALS.replace('%%%MRN%%%',mrns))
 
-# Perform the query on Mosaiq to fetch finished treatments
+# Perform the query on OIS to fetch finished treatments
 def fetch_patient_finished_treatment(mrns):
 
     if len(QUERY_PATIENT_FINISHED_TREATMENT) == 0:
-        logger.error("MOSAIQ query missing, please add in database.py")
+        logger.error("OIS query missing, please add in database.py")
         return ""
 
-    return query_mosaiq(QUERY_PATIENT_FINISHED_TREATMENT.replace('%%%MRN%%%',mrns))
+    return query_ois(QUERY_PATIENT_FINISHED_TREATMENT.replace('%%%MRN%%%',mrns))
 
-# Perform the query on Mosaiq to fetch 4d cone beams
+# Perform the query on OIS to fetch 4d cone beams
 def fetch_patient_has_4d(mrns):
 
     if len(QUERY_PATIENT_HAS_4D) == 0:
-        logger.error("MOSAIQ query missing, please add in database.py")
+        logger.error("OIS query missing, please add in database.py")
         return ""
 
-    return query_mosaiq(QUERY_PATIENT_HAS_4D.replace('%%%MRN%%%',mrns))
+    return query_ois(QUERY_PATIENT_HAS_4D.replace('%%%MRN%%%',mrns))
 
-# Perform the query on Mosaiq and return the results as a dict
-def query_mosaiq(query):
+# Perform the query on OIS and return the results as a dict
+def query_ois(query):
 
     logger.debug(str(query))
     datastore = get_datastore()
 
-    if not "host" in datastore["mosaiq_config"] or len(datastore['mosaiq_config']['host']) == 0:
-        logger.error("MOSAIQ connection configuration missing")
+    if not "host" in datastore["ois_config"] or len(datastore['ois_config']['host']) == 0:
+        logger.error("OIS connection configuration missing")
 
     if len(query) == 0:
-        logger.error("MOSAIQ query missing, please add in database.py")
+        logger.error("OIS query missing, please add in database.py")
 
     conn = None
     result = None
@@ -83,12 +83,12 @@ def query_mosaiq(query):
     # Run query on mssql and return a list of dicts of the results
     try:
 
-        logger.info('Will query Mosaiq')
+        logger.info('Will query OIS')
 
-        conn = pymssql.connect(server=datastore['mosaiq_config']['host'],
-            user=datastore['mosaiq_config']['user'],
-            password=datastore['mosaiq_config']['pass'],
-            database=datastore['mosaiq_config']['db'])
+        conn = pymssql.connect(server=datastore['ois_config']['host'],
+            user=datastore['ois_config']['user'],
+            password=datastore['ois_config']['pass'],
+            database=datastore['ois_config']['db'])
 
         cursor = conn.cursor(as_dict=True)
 

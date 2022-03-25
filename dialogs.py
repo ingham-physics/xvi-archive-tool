@@ -92,13 +92,13 @@ class XVIPathsDialog:
 
         set_datastore(datastore)
 
-# Dialog to configure the Mosaiq connection parameters
-class MosaiqConnectionDialog:
+# Dialog to configure the OIS connection parameters
+class OISConnectionDialog:
 
     def __init__(self, parent):
 
         self.top = tk.Toplevel(parent)
-        self.top.title('Configure Mosaiq')
+        self.top.title('Configure OIS')
         self.top.geometry('450x300')
         self.top.update()
         self.top.focus_set()
@@ -109,7 +109,7 @@ class MosaiqConnectionDialog:
 
         self.top.attributes("-topmost", True)
 
-        tk.Label(self.top, text='Configure the connection parameters for Mosaiq').grid(row=0, columnspan=2, padx=5, pady=5, sticky='EW')
+        tk.Label(self.top, text='Configure the connection parameters for OIS').grid(row=0, columnspan=2, padx=5, pady=5, sticky='EW')
 
         tk.Label(self.top, text='Host:').grid(row=1, sticky='EW', padx=5, pady=5)
         tk.Label(self.top, text='Username:').grid(row=2, sticky='EW', padx=5, pady=5)
@@ -123,12 +123,12 @@ class MosaiqConnectionDialog:
 
         datastore = get_datastore()
         try:
-            self.txt_host.insert(0,datastore['mosaiq_config']['host'])
-            self.txt_user.insert(0,datastore['mosaiq_config']['user'])
-            self.txt_pass.insert(0,datastore['mosaiq_config']['pass'])
-            self.txt_db.insert(0,datastore['mosaiq_config']['db'])
+            self.txt_host.insert(0,datastore['ois_config']['host'])
+            self.txt_user.insert(0,datastore['ois_config']['user'])
+            self.txt_pass.insert(0,datastore['ois_config']['pass'])
+            self.txt_db.insert(0,datastore['ois_config']['db'])
         except Exception as e:
-            # No mosaiq_config in datastore yet
+            # No ois_config in datastore yet
             pass
 
         self.txt_host.grid(row=1, column=1, padx=5, sticky='EW')
@@ -143,13 +143,13 @@ class MosaiqConnectionDialog:
 
         datastore = get_datastore()
 
-        mosaiq_config = {}
-        mosaiq_config['host'] = self.txt_host.get()
-        mosaiq_config['user'] = self.txt_user.get()
-        mosaiq_config['pass'] = self.txt_pass.get()
-        mosaiq_config['db'] = self.txt_db.get()
+        ois_config = {}
+        ois_config['host'] = self.txt_host.get()
+        ois_config['user'] = self.txt_user.get()
+        ois_config['pass'] = self.txt_pass.get()
+        ois_config['db'] = self.txt_db.get()
 
-        datastore['mosaiq_config'] = mosaiq_config
+        datastore['ois_config'] = ois_config
 
         set_datastore(datastore)
 

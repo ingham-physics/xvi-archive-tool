@@ -258,9 +258,9 @@ class ScanPathsTask(threading.Thread):
         clinical_trials = fetch_clinical_trials(mrns)
         has_4d = fetch_patient_has_4d(mrns)
 
-        # If finished_treatment returns None, then Mosaiq probably isn't configured
+        # If finished_treatment returns None, then OIS probably isn't configured
         if finished_treatment == None:
-            self.queue.put({'error' : 'Could not query Mosaiq', 'msg' : 'Mosaiq could not be queried. Check connection settings.' })
+            self.queue.put({'error' : 'Could not query OIS', 'msg' : 'OIS could not be queried. Check connection settings.' })
             return
 
         for p in self.directories:

@@ -33,8 +33,8 @@ def get_datastore():
     if not 'xvi_paths' in datastore:
         datastore['xvi_paths'] = []
 
-    if not 'mosaiq_config' in datastore:
-        datastore['mosaiq_config'] = {}
+    if not 'ois_config' in datastore:
+        datastore['ois_config'] = {}
 
     if not 'ignore_mrns' in datastore:
         datastore['ignore_mrns'] = []

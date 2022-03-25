@@ -29,7 +29,7 @@ from dialogs import (XVIPathsDialog,
     ScanningDialog, 
     LogPathDialog, 
     ArchivePathDialog,
-    MosaiqConnectionDialog, 
+    OISConnectionDialog, 
     IgnoreMRNsDialog, 
     EmailReportsDialog, 
     ActionDialog, 
@@ -189,7 +189,7 @@ class MainApplication(tk.Frame):
 
         main_menu = tk.Menu(menu_bar, tearoff=0)
         main_menu.add_command(label='Configure XVI Paths', command=self.configure_window_xvi_paths)
-        main_menu.add_command(label='Configure Mosaiq Connection', command=self.configure_window_mosaiq_connection)
+        main_menu.add_command(label='Configure OIS Connection', command=self.configure_window_ois_connection)
         main_menu.add_command(label='Configure Archive Path', command=self.configure_window_archive_path)
         main_menu.add_command(label='Configure Log Path', command=self.configure_window_log_path)
         main_menu.add_command(label='Configure Ignore MRNs', command=self.configure_window_ignore_mrns)
@@ -248,11 +248,11 @@ class MainApplication(tk.Frame):
         self.wait_window(dialog.top)
         self.update_gui()
 
-    # Show configure Mosaiq dialog and wait for it to finish
-    def configure_window_mosaiq_connection(self):
-        mosaiq_connection_dialog = MosaiqConnectionDialog(self)
+    # Show configure OIS dialog and wait for it to finish
+    def configure_window_ois_connection(self):
+        ois_connection_dialog = OISConnectionDialog(self)
 
-        self.wait_window(mosaiq_connection_dialog.top)
+        self.wait_window(ois_connection_dialog.top)
 
         self.update_gui()
 
