@@ -27,7 +27,17 @@ You can run the tool as a scheduled task and avoid showing the GUI:
 python run.py --auto-run
 ```
 
-## Notes
+Before you can successfully run the code, centre specific OIS queries should be added in the marked locations
+of the `database.py` file.
 
-While various Oncology Information Systems (OIS) should be compatible, MOSAIQ has only been tested with this
+While various OIS databases should be compatible, MOSAIQ has only been tested with this
 code. Adjustments may be required to support other OIS databases.
+
+## Glossary
+
+- OIS: Oncology Information System
+- MRN: Medical Record Number. May be referred to as Unique Patient Identifier or similar based on your OIS
+
+## Author
+
+- **Phillip Chlap** - [phillip.chlap@unsw.edu.au](phillip.chlap@unsw.edu.au)
